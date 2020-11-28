@@ -13,6 +13,7 @@ services:
         volumes:
             - ./src:/var/www/app:ro
             - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
+            - ./logs/nginx:/var/log/nginx:cached
 
     # PHP Service
     php:
