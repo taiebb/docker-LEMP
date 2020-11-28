@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -24,9 +26,9 @@ RUN docker-php-ext-install gd
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#RUN docker-php-ext-install mysqli pdo pdo_mysql
-
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
         && php composer-setup.php && rm composer-setup.php* \
         && chmod +x composer.phar && mv composer.phar /usr/bin/composer
+
+COPY xdebug.ini /usr/local/etc/php/conf.d
