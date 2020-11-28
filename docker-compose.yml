@@ -11,7 +11,7 @@ services:
         depends_on:
             - php
         volumes:
-            - ./src:/var/www/app:ro
+            - ./app:/var/www/app:ro
             - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
             - ./logs/nginx:/var/log/nginx:cached
 
@@ -20,7 +20,7 @@ services:
         build: ./.docker/php
         working_dir: /var/www/app
         volumes:
-            - ./src:/var/www/app
+            - ./app:/var/www/app
         depends_on:
             - mysql
 
